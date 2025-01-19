@@ -1,5 +1,5 @@
 CCX = gcc
-CFLAGS = -Wall -g
+CFLAGS = -Wall -O3
 
 CPP_SOURCES = $(wildcard *.cpp)
 CPP_OBJECTS = $(patsubst %.cpp,%.o,$(CPP_SOURCES))

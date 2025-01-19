@@ -1,6 +1,19 @@
 {
     "files.associations": {
         "locale": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "memory_resource": "cpp",
+        "__config": "cpp",
+        "__hash_table": "cpp",
+        "__node_handle": "cpp",
+        "cstdlib": "cpp",
+        "map": "cpp",
+        "optional": "cpp",
+        "unordered_map": "cpp",
+        "*.inc": "cpp",
+        "*.rh": "cpp",
+        "any": "cpp",
+        "complex": "cpp",
+        "cmath": "cpp"
     }
 }
