@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 #include <time.h>
-#include <SDL_ttf.h>
+#include <math.h>
 
 #include "Objects.h"
 #include "Units.h"
@@ -16,7 +16,7 @@ const int numObjects = (WIDTH / CELL_SIZE) * (HEIGHT / CELL_SIZE);
 ObjectType typeSelected = Sand;
 Object* objects;
 
-int main()
+int main(int argc, char* argv[])
 {
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Window* win = SDL_CreateWindow("Falling Sand", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0);
