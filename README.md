@@ -2,7 +2,7 @@
 
 ## Images and Videos
 
-<!-- Add images or videos here to showcase the simulation -->
+<img src="snapshot.png" alt="Simulation Preview">
 
 ## Description
 
