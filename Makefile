@@ -14,7 +14,11 @@ else
 	LDFLAGS = -L. -L/usr/lib
 	INC = -I/usr/include/SDL2
 	LDLIBS = -lm -lSDL2 -lSDL2_ttf
-	CFLAGS = -Wall -O3
+	CFLAGS = -Wall -O3 
+endif
+
+ifeq ($(DEBUG),1)
+	CFLAGS += -g -fsanitize=address
 endif
 
 ifeq ($(OS),Windows_NT)
@@ -31,3 +35,4 @@ $(CPP_OBJECTS) : %.o : %.cpp
 
 clean:
 	rm *.o $(EXECUTABLE)
+

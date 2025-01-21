@@ -84,6 +84,7 @@ void Object::Fall(Vector2D pos)
 
 void Object::Slide(Vector2D pos)
 {
+    // printf("%d %d\n", pos.x, pos.y);
     switch(type)
     {
         case Sand:
@@ -138,10 +139,10 @@ void Object::Erosion(Vector2D pos)
         case Sand:
         {
             {
-                bool right_is_air = (this + 1)->type == Air;
-                bool left_is_air = (this - 1)->type == Air;
-                if(pos.x == 0) left_is_air = false;
-                if(pos.x == WIDTH/CELL_SIZE - 1) right_is_air = false;
+                bool right_is_air;
+                bool left_is_air;
+                if(pos.x == 0) left_is_air = false; else {left_is_air = (this - 1)->type == Air;}
+                if(pos.x == WIDTH/CELL_SIZE - 1) right_is_air = false; else {right_is_air = (this + 1)->type == Air;}
                 switch (left_is_air | right_is_air << 1)
                 {
                     case 1:
@@ -209,7 +210,7 @@ bool TouchingGround(Object *obj, Vector2D pos)
 {
     int increment = 1;
     while(pos.y + increment < HEIGHT/CELL_SIZE){
-        if((obj + (increment * WIDTH / CELL_SIZE))->type == Air){
+        if((obj + (increment * (WIDTH / CELL_SIZE)))->type == Air){
             return false;
         }
         increment++;

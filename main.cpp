@@ -115,12 +115,12 @@ int main(int argc, char* argv[])
             switch(rand() > RAND_MAX/2){
                 case false:
                     for(int column = 0; column < WIDTH/CELL_SIZE; column++){
-                        objects[column + (row*WIDTH/CELL_SIZE)].Slide({column, row});
+                        objects[column + (row*(WIDTH/CELL_SIZE))].Slide({column, row});
                     }
                     break;
                 case true:
-                    for(int column = WIDTH/CELL_SIZE - 1; column > -1; column--){
-                        objects[column + (row*WIDTH/CELL_SIZE)].Slide({column, row});
+                    for(int column = (WIDTH/CELL_SIZE) - 1; column > -1; column--){
+                        objects[column + (row*(WIDTH/CELL_SIZE))].Slide({column, row});
                     }
                     break;
             }
@@ -130,12 +130,12 @@ int main(int argc, char* argv[])
             switch(rand() > RAND_MAX/2){
                 case false:
                     for(int column = 0; column < WIDTH/CELL_SIZE; column++){
-                        objects[column + (row*WIDTH/CELL_SIZE)].Erosion({column, row});
+                        objects[column + (row*(WIDTH/CELL_SIZE))].Erosion({column, row});
                     }
                     break;
                 case true:
                     for(int column = WIDTH/CELL_SIZE - 1; column > -1; column--){
-                        objects[column + (row*WIDTH/CELL_SIZE)].Erosion({column, row});
+                        objects[column + (row*(WIDTH/CELL_SIZE))].Erosion({column, row});
                     }
                     break;
             }
@@ -143,6 +143,7 @@ int main(int argc, char* argv[])
 
         DrawSelector(renderer, {mouse_x, mouse_y},typeSelected);
         DrawFPS({0,0}, font, renderer, {0x00, 0xff, 0x00, 0xff}, deltaTime);
+        // printf("%s\n", SDL_GetError());
         SDL_RenderPresent(renderer);
         SDL_UpdateWindowSurface(win);
 
@@ -162,6 +163,8 @@ int main(int argc, char* argv[])
     }
 
     free(objects);
+    TTF_CloseFont(font);
+    TTF_Quit();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(win);
     SDL_Quit();
