@@ -14,6 +14,7 @@
         "*.rh": "cpp",
         "any": "cpp",
         "complex": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "*.tcc": "cpp"
     }
 }

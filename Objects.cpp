@@ -1,4 +1,5 @@
 #include "Objects.h"
+#include <csignal>
 
 void Object::Update(Vector2D pos)
 {
@@ -124,6 +125,83 @@ void Object::Slide(Vector2D pos)
             return;
         }
         default:
-            break;
+            return;
     }   
+}
+
+void Object::Erosion(Vector2D pos, bool* eroded)
+{
+    switch(type)
+    {
+        case Sand:
+        {
+            if(!eroded[pos.x + (pos.y * WIDTH/CELL_SIZE)] || true)
+            {
+                bool right_is_air = (this + 1)->type == Air;
+                bool left_is_air = (this - 1)->type == Air;
+                if(pos.x == 0) left_is_air = false;
+                if(pos.x == WIDTH/CELL_SIZE - 1) right_is_air = false;
+                switch (left_is_air | right_is_air << 1)
+                {
+                    case 1:
+                        case_1:
+                        {
+                            int sand_at_right = 0;
+                            int increment = 1;
+                            while (pos.x + increment < WIDTH/CELL_SIZE)
+                            {
+                                if((this + increment)->type != Air){
+                                    sand_at_right++;
+                                    increment++;
+                                }else{
+                                    break;
+                                }
+                            }
+                            float probability_of_falling = 1.f/(EROSION_STRENGTH + (EROSION_STRENGTH*(sand_at_right+1)));
+                            if(rand() > RAND_MAX * probability_of_falling){
+                                (this - 1)->type = type;
+                                (this - 1)->color = color;
+                                type = Air;
+                            }
+                            eroded[(pos.x - 1) + (pos.y * WIDTH/CELL_SIZE)] = true;
+                        }
+                        return;
+                    case 2:
+                        case_2:
+                        {
+                            int sand_at_left = 0;
+                            int increment = 1;
+                            while (pos.x - increment > -1)
+                            {
+                                if((this - increment)->type != Air){
+                                    sand_at_left++;
+                                    increment++;
+                                }else{
+                                    break;
+                                }
+                            }
+                            float probability_of_falling = 1.f/(EROSION_STRENGTH + (EROSION_STRENGTH*(sand_at_left+1)));
+                            if(rand() > RAND_MAX * probability_of_falling){
+                                (this + 1)->type = type;
+                                (this + 1)->color = color;
+                                type = Air;
+                            }
+                            eroded[(pos.x + 1) + (pos.y * WIDTH/CELL_SIZE)] = true;
+                        }
+                        return;
+                    case 3:
+                        switch (rand() > RAND_MAX/2)
+                        {
+                            case 1:
+                                goto case_1;
+                            case 0:
+                                goto case_2;
+                        }
+                }
+            }
+            return;
+        }
+        default:
+            return;
+    }
 }
