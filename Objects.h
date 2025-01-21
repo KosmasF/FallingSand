@@ -20,7 +20,6 @@ struct Object{
         SDL_Rect rect = {pos.x * CELL_SIZE, pos.y * CELL_SIZE, CELL_SIZE, CELL_SIZE};
         SDL_RenderFillRect(renderer, &rect);
     };
-    void Update(Vector2D pos);
     void Fall(Vector2D pos);
     void Slide(Vector2D pos);
     void Erosion(Vector2D pos);
