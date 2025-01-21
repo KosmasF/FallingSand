@@ -18,14 +18,16 @@ void Object::Update(Vector2D pos)
                 }
                 else{
                     bool right = (below + 1)->type == Air;
+                    bool can_pass_right = (this + 1)->type == Air;
                     bool left = (below - 1)->type == Air;
+                    bool can_pass_left = (this - 1)->type == Air;
                     if(pos.x == (WIDTH/CELL_SIZE) - 1){
                         right = false;
                     }
                     if(pos.x == 0){
                         left = false;
                     }
-                    switch (right | left << 1)
+                    switch ((right && can_pass_right) | (left && can_pass_left) << 1)
                     {
                         case 0:
                             return;
@@ -144,7 +146,7 @@ void Object::Erosion(Vector2D pos)
                 {
                     case 1:
                         case_1:
-                        {
+                        if(TouchingGround(this, pos)){
                             int sand_at_right = 0;
                             int increment = 1;
                             while (pos.x + increment < WIDTH/CELL_SIZE)
@@ -166,7 +168,7 @@ void Object::Erosion(Vector2D pos)
                         return;
                     case 2:
                         case_2:
-                        {
+                        if(TouchingGround(this, pos)){
                             int sand_at_left = 0;
                             int increment = 1;
                             while (pos.x - increment > -1)
@@ -201,4 +203,16 @@ void Object::Erosion(Vector2D pos)
         default:
             return;
     }
+}
+
+bool TouchingGround(Object *obj, Vector2D pos)
+{
+    int increment = 1;
+    while(pos.y + increment < HEIGHT/CELL_SIZE){
+        if((obj + (increment * WIDTH / CELL_SIZE))->type == Air){
+            return false;
+        }
+        increment++;
+    }
+    return true;
 }

@@ -8,6 +8,7 @@
 #include "Units.h"
 #include "Loop.h"
 #include "DrawFPS.h"
+#include "DrawSelector.h"
 
 #define MAX_NAME_LENGTH 15
 
@@ -21,6 +22,8 @@ int main(int argc, char* argv[])
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Window* win = SDL_CreateWindow("Falling Sand", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0);
     SDL_Renderer* renderer = SDL_CreateRenderer(win, -1, 0);
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_ShowCursor(false);
     srand(time(NULL));
 
     TTF_Init();
@@ -48,9 +51,11 @@ int main(int argc, char* argv[])
         SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xff);
         SDL_RenderClear(renderer);
 
+        int mouse_x, mouse_y;
+        SDL_GetMouseState(&mouse_x, &mouse_y);
+
         if(mouse_pressed){
-            int x, y, mouse_x, mouse_y;
-            SDL_GetMouseState(&mouse_x, &mouse_y);
+            int x, y;
             if(mouse_x >= 0 && mouse_y >= 0 && mouse_x < WIDTH && mouse_y < HEIGHT)
             {
                 x = mouse_x/CELL_SIZE;
@@ -136,6 +141,7 @@ int main(int argc, char* argv[])
             }
         }
 
+        DrawSelector(renderer, {mouse_x, mouse_y},typeSelected);
         DrawFPS({0,0}, font, renderer, {0x00, 0xff, 0x00, 0xff}, deltaTime);
         SDL_RenderPresent(renderer);
         SDL_UpdateWindowSurface(win);
@@ -143,6 +149,16 @@ int main(int argc, char* argv[])
         end_time = (float)clock() / CLOCKS_PER_SEC;
         deltaTime = end_time - start_time;
         start_time = end_time;
+        #ifdef FPS_LIMIT
+        float wanted_delta_time = 1.f / FPS_LIMIT;
+        float residual_delta_time = wanted_delta_time - deltaTime;
+        if(residual_delta_time > 0){
+            timespec tm = {
+                .tv_nsec = (long)(residual_delta_time * 1'000'000'000)
+            };
+            nanosleep(&tm, nullptr);
+        }
+        #endif
     }
 
     free(objects);

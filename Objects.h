@@ -25,3 +25,5 @@ struct Object{
     void Slide(Vector2D pos);
     void Erosion(Vector2D pos);
 };
+
+bool TouchingGround(Object* obj, Vector2D pos);
