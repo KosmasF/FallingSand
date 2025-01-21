@@ -30,8 +30,4 @@ $(CPP_OBJECTS) : %.o : %.cpp
 	$(CXX) $(INC) $(CFLAGS) -c $^ -o $@
 
 clean:
-ifeq ($(OS),Windows_NT)
-	del *.o $(EXECUTABLE)
-else
-	rm -f *.o $(EXECUTABLE)
-endif
+	rm *.o $(EXECUTABLE)
