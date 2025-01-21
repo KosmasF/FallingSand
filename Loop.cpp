@@ -19,21 +19,31 @@ bool Loop()
         }
         else if(e.type == SDL_KEYDOWN)
         {
-            if(e.key.keysym.sym == SDLK_1){
-                typeSelected = Sand;
-            }
-            else if(e.key.keysym.sym == SDLK_2){
-                typeSelected = Stone;
-            }
-            else if(e.key.keysym.sym == SDLK_BACKQUOTE){
-                typeSelected = Air;
-            }else if(e.key.keysym.sym == SDLK_0){
-                for(int i = 0; i < numObjects; i++){
-                    objects[i] = (Object){
-                        .type = Air,
-                        .color = (SDL_Color){0x00, 0x00, 0x00, 0x00}
-                    };
-                }
+            switch (e.key.keysym.sym)
+            {
+                case SDLK_1:
+                    typeSelected = Sand;
+                    break;
+                case SDLK_2:
+                    typeSelected = Stone;
+                    break;
+                case SDLK_BACKQUOTE:
+                    typeSelected = Air;
+                    break;
+                case SDLK_0:
+                    for(int i = 0; i < numObjects; i++){
+                        objects[i] = (Object){
+                            .type = Air,
+                            .color = (SDL_Color){0x00, 0x00, 0x00, 0x00}
+                        };
+                    }
+                    break;
+                case SDLK_EQUALS:
+                    brush_size++;
+                    break;
+                case SDLK_UNDERSCORE:
+                    if(brush_size>0)brush_size--;
+                    break;
             }
         }
     }
