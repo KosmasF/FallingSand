@@ -121,23 +121,20 @@ int main(int argc, char* argv[])
             }
         }
 
-        bool* eroded = (bool*)malloc(sizeof(bool)*numObjects);
-        for(int i = 0; i < numObjects; i++) eroded[i] = false;
         for(int row = HEIGHT/CELL_SIZE - 1; row > -1; row--){
             switch(rand() > RAND_MAX/2){
                 case false:
                     for(int column = 0; column < WIDTH/CELL_SIZE; column++){
-                        objects[column + (row*WIDTH/CELL_SIZE)].Erosion({column, row}, eroded);
+                        objects[column + (row*WIDTH/CELL_SIZE)].Erosion({column, row});
                     }
                     break;
                 case true:
                     for(int column = WIDTH/CELL_SIZE - 1; column > -1; column--){
-                        objects[column + (row*WIDTH/CELL_SIZE)].Erosion({column, row}, eroded);
+                        objects[column + (row*WIDTH/CELL_SIZE)].Erosion({column, row});
                     }
                     break;
             }
         }
-        free(eroded);
 
         DrawFPS({0,0}, font, renderer, {0x00, 0xff, 0x00, 0xff}, deltaTime);
         SDL_RenderPresent(renderer);

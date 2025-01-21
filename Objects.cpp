@@ -129,13 +129,12 @@ void Object::Slide(Vector2D pos)
     }   
 }
 
-void Object::Erosion(Vector2D pos, bool* eroded)
+void Object::Erosion(Vector2D pos)
 {
     switch(type)
     {
         case Sand:
         {
-            if(!eroded[pos.x + (pos.y * WIDTH/CELL_SIZE)] || true)
             {
                 bool right_is_air = (this + 1)->type == Air;
                 bool left_is_air = (this - 1)->type == Air;
@@ -157,13 +156,12 @@ void Object::Erosion(Vector2D pos, bool* eroded)
                                     break;
                                 }
                             }
-                            float probability_of_falling = 1.f/(EROSION_STRENGTH + (EROSION_STRENGTH*(sand_at_right+1)));
-                            if(rand() > RAND_MAX * probability_of_falling){
+                            float probability_of_falling = 1.f/(EROSION_INVERSE_STRENGTH + (EROSION_INVERSE_STRENGTH*(sand_at_right+1)));
+                            if(rand() < RAND_MAX * probability_of_falling){
                                 (this - 1)->type = type;
                                 (this - 1)->color = color;
                                 type = Air;
                             }
-                            eroded[(pos.x - 1) + (pos.y * WIDTH/CELL_SIZE)] = true;
                         }
                         return;
                     case 2:
@@ -180,13 +178,12 @@ void Object::Erosion(Vector2D pos, bool* eroded)
                                     break;
                                 }
                             }
-                            float probability_of_falling = 1.f/(EROSION_STRENGTH + (EROSION_STRENGTH*(sand_at_left+1)));
-                            if(rand() > RAND_MAX * probability_of_falling){
+                            float probability_of_falling = 1.f/(EROSION_INVERSE_STRENGTH + (EROSION_INVERSE_STRENGTH*(sand_at_left+1)));
+                            if(rand() < RAND_MAX * probability_of_falling){
                                 (this + 1)->type = type;
                                 (this + 1)->color = color;
                                 type = Air;
                             }
-                            eroded[(pos.x + 1) + (pos.y * WIDTH/CELL_SIZE)] = true;
                         }
                         return;
                     case 3:

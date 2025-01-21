@@ -23,5 +23,5 @@ struct Object{
     void Update(Vector2D pos);
     void Fall(Vector2D pos);
     void Slide(Vector2D pos);
-    void Erosion(Vector2D pos, bool* eroded);
+    void Erosion(Vector2D pos);
 };

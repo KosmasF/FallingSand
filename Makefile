@@ -14,7 +14,7 @@ else
 	LDFLAGS = -L. -L/usr/lib
 	INC = -I/usr/include/SDL2
 	LDLIBS = -lm -lSDL2 -lSDL2_ttf
-	CFLAGS = -Wall -g
+	CFLAGS = -Wall -O3
 endif
 
 ifeq ($(OS),Windows_NT)
