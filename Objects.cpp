@@ -210,10 +210,16 @@ bool TouchingGround(Object *obj, Vector2D pos)
 {
     int increment = 1;
     while(pos.y + increment < HEIGHT/CELL_SIZE){
-        if((obj + (increment * (WIDTH / CELL_SIZE)))->type == Air){
-            return false;
+        switch ((obj + (increment * (WIDTH / CELL_SIZE)))->type)
+        {
+            case Air:
+                return false;
+            case Stone:
+                return true;
+            case Sand:
+                increment++;
+                break;
         }
-        increment++;
     }
     return true;
 }
