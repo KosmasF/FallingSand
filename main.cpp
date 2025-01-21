@@ -76,7 +76,7 @@ int main(int argc, char* argv[])
                                     }
                                     break;
                                 case Stone:
-                                    {
+                                    if(objects[brush_x + (brush_y * (WIDTH/CELL_SIZE))].type != Stone){
                                         unsigned char brightness = (unsigned char)((((float)rand() / RAND_MAX)*(0x96 - 0x64)) + 0x64);
                                         objects[brush_x + (brush_y * (WIDTH/CELL_SIZE))] = (Object){
                                             .type = Stone,
