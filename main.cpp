@@ -103,7 +103,22 @@ int main(int argc, char* argv[])
         }
 
         for(int i = numObjects - 1; i > - 1; i--){
-            objects[i].Update({i % (WIDTH/CELL_SIZE), i / (WIDTH/CELL_SIZE)});
+            objects[i].Fall({i % (WIDTH/CELL_SIZE), i / (WIDTH/CELL_SIZE)});
+        }
+
+        for(int row = HEIGHT/CELL_SIZE - 1; row > -1; row--){
+            switch(rand() > RAND_MAX/2){
+                case false:
+                    for(int column = 0; column < WIDTH/CELL_SIZE; column++){
+                        objects[column + (row*WIDTH/CELL_SIZE)].Slide({column, row});
+                    }
+                    break;
+                case true:
+                    for(int column = WIDTH/CELL_SIZE - 1; column > -1; column--){
+                        objects[column + (row*WIDTH/CELL_SIZE)].Slide({column, row});
+                    }
+                    break;
+            }
         }
 
         DrawFPS({0,0}, font, renderer, {0x00, 0xff, 0x00, 0xff}, deltaTime);
