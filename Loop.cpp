@@ -41,8 +41,8 @@ bool Loop()
                 case SDLK_EQUALS:
                     brush_size++;
                     break;
-                case SDLK_UNDERSCORE:
-                    if(brush_size>0)brush_size--;
+                case SDLK_MINUS:
+                    if(brush_size > 1 ) brush_size--;
                     break;
             }
         }

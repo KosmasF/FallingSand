@@ -60,10 +60,10 @@ int main(int argc, char* argv[])
             {
                 x = mouse_x/CELL_SIZE;
                 y = mouse_y/CELL_SIZE;
-                for(int brush_x = x - BRUSH_SIZE/2; brush_x < x + BRUSH_SIZE/2; brush_x++)
+                for(int brush_x = x - BRUSH_SIZE/2; brush_x <= x + BRUSH_SIZE/2; brush_x++)
                 {
                     if(brush_x < 0 || brush_x >= WIDTH/CELL_SIZE) continue;
-                    for(int brush_y = y - BRUSH_SIZE/2; brush_y < y + BRUSH_SIZE/2; brush_y++)
+                    for(int brush_y = y - BRUSH_SIZE/2; brush_y <= y + BRUSH_SIZE/2; brush_y++)
                     {
                         if(brush_y < 0 || brush_y >= HEIGHT/CELL_SIZE) continue;
                         if(pow(brush_x - x, 2)+pow(brush_y - y, 2) < BRUSH_SIZE * BRUSH_SIZE / 2 / 2)
@@ -141,7 +141,7 @@ int main(int argc, char* argv[])
             }
         }
 
-        DrawSelector(renderer, {mouse_x, mouse_y},typeSelected);
+        DrawSelector(renderer, {mouse_x/CELL_SIZE, mouse_y/CELL_SIZE},typeSelected);
         DrawFPS({0,0}, font, renderer, {0x00, 0xff, 0x00, 0xff}, deltaTime);
         // printf("%s\n", SDL_GetError());
         SDL_RenderPresent(renderer);
