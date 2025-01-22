@@ -9,6 +9,7 @@
 #include "Loop.h"
 #include "DrawFPS.h"
 #include "DrawSelector.h"
+#include "GPU.h"
 
 #define MAX_NAME_LENGTH 15
 
@@ -16,6 +17,8 @@ bool mouse_pressed = false;
 const int numObjects = (WIDTH / CELL_SIZE) * (HEIGHT / CELL_SIZE);
 ObjectType typeSelected = Sand;
 Object* objects;
+
+GPU gpu;
 
 int main(int argc, char* argv[])
 {
@@ -107,9 +110,10 @@ int main(int argc, char* argv[])
             objects[i].Draw(renderer, {i % (WIDTH/CELL_SIZE), i / (WIDTH/CELL_SIZE)});
         }
 
-        for(int i = numObjects - 1; i > - 1; i--){
-            objects[i].Fall({i % (WIDTH/CELL_SIZE), i / (WIDTH/CELL_SIZE)});
-        }
+        // for(int i = numObjects - 1; i > - 1; i--){
+        //     objects[i].Fall({i % (WIDTH/CELL_SIZE), i / (WIDTH/CELL_SIZE)});
+        // }
+        gpu.Fall();
 
         for(int row = HEIGHT/CELL_SIZE - 1; row > -1; row--){
             switch(rand() > RAND_MAX/2){

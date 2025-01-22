@@ -12,13 +12,13 @@ ifeq ($(OS),Windows_NT)
 	CFLAGS = -Wall -O3 -std=c++17 -m32
 else 
 	LDFLAGS = -L. -L/usr/lib
-	INC = -I/usr/include/SDL2
-	LDLIBS = -lm -lSDL2 -lSDL2_ttf
+	INC = -I/usr/include/SDL2 
+	LDLIBS = -lm -lSDL2 -lSDL2_ttf -lOpenCL
 	CFLAGS = -Wall -O3 
 endif
 
 ifeq ($(DEBUG),1)
-	CFLAGS += -g -fsanitize=address
+	CFLAGS += -g #-fsanitize=address
 endif
 
 ifeq ($(OS),Windows_NT)
