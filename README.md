@@ -27,3 +27,9 @@ The purpose of this project is to provide a simple and interactive simulation of
 - Air particles erase other particles
 - Adjustable brush size and probability for drawing particles
 - Real-time rendering and interaction
+
+## Building
+
+This project supports building using make in:
+- Windows x86 and x64 with automatic install of SDL2 and SLD_ttf
+- Linux, manual install of sdl and sdl_ttf needed 
