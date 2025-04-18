@@ -1,3 +1,7 @@
 *.o
 main
 main.exe
+SDL2_ttf-2.24.0
+SDL2-2.32.4
+*.bak
+*.dll
